@@ -58,7 +58,5 @@
     ],
     "testEnvironment": "node"
   },
-  "dependencies": {
-    "async-json": "github:ckknight/async-json"
-  }
+  "dependencies": {}
 }

@@ -1,5 +1,3 @@
-import asyncJson from 'async-json';
-
 const plainSender = (worker, action, next) => {
   if (action.meta && action.meta.WebWorker) {
     worker.postMessage(action);
@@ -7,16 +5,9 @@ const plainSender = (worker, action, next) => {
   return next(action);
 };
 
-const syncStringSender = (worker, action, next) => {
+const stringSender = (worker, action, next) => {
   if (action.meta && action.meta.WebWorker) {
     worker.postMessage(JSON.stringify(action));
-  }
-  return next(action);
-};
-
-const asyncStringSender = (worker, action, next) => {
-  if (action.meta && action.meta.WebWorker) {
-    asyncJson.stringify(action).then(worker.postMessage);
   }
   return next(action);
 };
@@ -31,7 +22,6 @@ const stringReceiver = dispatch => ({ data: string }) => {
 
 const createWorkerMiddleware = (worker, {
   sendString = false,
-  sendStringAsync = false,
   receiveString = false,
 } = {}) => {
   /*
@@ -52,12 +42,7 @@ const createWorkerMiddleware = (worker, {
     );
   }
 
-  let sender = plainSender;
-  if (sendStringAsync) {
-    sender = asyncStringSender;
-  } else if (sendString) {
-    sender = syncStringSender;
-  }
+  const sender = sendString ? stringSender : plainSender;
 
   return ({ dispatch }) => {
     /*
