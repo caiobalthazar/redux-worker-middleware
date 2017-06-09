@@ -57,5 +57,8 @@
       "src/**/*.js"
     ],
     "testEnvironment": "node"
+  },
+  "dependencies": {
+    "bfj": "git+ssh://git@github.com/caiobalthazar/bfj.git"
   }
 }

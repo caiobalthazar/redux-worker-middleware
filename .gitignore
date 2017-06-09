@@ -27,5 +27,5 @@ build/Release
 node_modules
 
 .DS_Store
-lib
+.idea
 .nyc_output
