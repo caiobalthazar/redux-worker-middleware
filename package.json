@@ -59,6 +59,6 @@
     "testEnvironment": "node"
   },
   "dependencies": {
-    "bfj": "git+ssh://git@github.com/caiobalthazar/bfj.git"
+    "async-json": "github:ckknight/async-json"
   }
 }

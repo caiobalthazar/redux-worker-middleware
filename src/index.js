@@ -1,4 +1,4 @@
-import stringify from 'bfj/lib/stringify';
+import asyncJson from 'async-json';
 
 const plainSender = (worker, action, next) => {
   if (action.meta && action.meta.WebWorker) {
@@ -16,7 +16,7 @@ const syncStringSender = (worker, action, next) => {
 
 const asyncStringSender = (worker, action, next) => {
   if (action.meta && action.meta.WebWorker) {
-    stringify(action).then(worker.postMessage);
+    asyncJson.stringify(action).then(worker.postMessage);
   }
   return next(action);
 };
